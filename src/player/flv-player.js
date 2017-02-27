@@ -129,6 +129,10 @@ class FlvPlayer {
     }
 
     attachMediaElement(mediaElement) {
+        // update _mediaDataSource.url and set _mediaDataSource.segments to null so as to be recreated
+        this._mediaDataSource.url = mediaElement['src'];
+        this._mediaDataSource.segments = null;
+
         this._mediaElement = mediaElement;
         mediaElement.addEventListener('loadedmetadata', this.e.onvLoadedMetadata);
         mediaElement.addEventListener('seeking', this.e.onvSeeking);
@@ -182,6 +186,10 @@ class FlvPlayer {
             this._msectl.destroy();
             this._msectl = null;
         }
+
+        // clean _mediaDataSource.url and _mediaDataSource.segments
+        this._mediaDataSource.url = null;
+        this._mediaDataSource.segments = null;
     }
 
     load() {
